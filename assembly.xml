@@ -1,0 +1,46 @@
+<!--
+This file is used by the Maven assembly plugin to create a distribution zip file
+containing all the necessary binaries, scripts, configuration files, etc. needed to
+install this tool.  The created .zip file assumes that the root directory where this is 
+intalled will be ~/test.
+-->
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+  <id>dist</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>${project.basedir}/bin</directory>
+      <outputDirectory>${project.artifactId}</outputDirectory>
+      <includes>
+        <include>run.sh</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/cfg</directory>
+      <outputDirectory>${project.artifactId}/config</outputDirectory>
+      <includes>
+        <include>**</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>${project.build.directory}</directory>
+      <outputDirectory>${project.artifactId}</outputDirectory>
+      <includes>
+        <include>*-fat.jar</include>
+      </includes>
+    </fileSet>
+    <!-- All web test files needed -->
+    <fileSet>
+      <directory>${project.basedir}/web</directory>
+      <outputDirectory>${project.artifactId}/webtest/</outputDirectory>
+      <includes>
+        <include>**</include>
+      </includes>
+    </fileSet>
+    </fileSets>
+</assembly>
