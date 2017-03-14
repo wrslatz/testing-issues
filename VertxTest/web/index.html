@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Vertx Test Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="imports/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/page.css">
+        
+        <!-- jQuery JS -->
+        <script type="text/javascript" src="imports/jquery/jquery.js"></script>
+        <!-- Bootstrap JS -->
+        <script type="text/javascript" src="imports/bootstrap/js/bootstrap.js"></script>
+        <!-- Knockout JS -->   
+        <script type="text/javascript" src="imports/knockout/knockout3.3.0.js"></script>
+        
+        <!-- sock.js client and Vertx Event Bus client -->
+        <script type="text/javascript" src="imports/sockjs/sockjsclient1.1.2.js"></script>
+        <!--<script type="text/javascript" src="imports/sockjs/sockjs-0.3.4.js"></script>-->
+        <script type="text/javascript" src="imports/vertx/vertx-web-3.3.3-client.js"></script>
+        
+    </head>
+    <body>
+        <div style="margin-left:20px;margin-right:20px;">
+            <h1 align="center"><u>Vertx Test Page (using SockJS 1.1.2)</u></h1>
+            <div id="serversetup" style="">
+                <h3 id="servertitle"><u>Eventbus Connection</u></h3>
+                <p id="serverprompt">Address:</p>
+                <input type="text" id="serveraddressinput" style="width:400px;">
+                <button id="setserver" onClick="createConnection()">Connect</button>
+                </br>
+                <label id="serverstatustitle">Status: </label>
+                <label id="serverstatus">Not Connected</label>
+            </div>
+            <div id="messagecenter" style="display:none;">
+                <h3 id="messagestitle"><u>Incoming Messages:</u></h3>
+                <textarea id="incoming" style="width:600px;height:300px;"></textarea>
+                <button id="sendtest" onClick="sendTestMessage()">Send Test Message</button>
+                <button id="sendtest" onClick="testAPICall()">Send Test Message through API Call</button>
+                </br>
+            </div>    
+        </div>
+    </body>
+    <!-- Custom JS -->
+    <script type="text/javascript" src="js/runner.js"></script>
+</html>

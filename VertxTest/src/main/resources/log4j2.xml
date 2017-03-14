@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <!--<Configuration monitorInterval="30" status="debug">-->
+    <!-- monitorInterval: automatic reload every 30sec on changes -->
+    <!-- status: log4j2 internal logging (not for the app) -->
+ 
+    <Properties>
+        <Property name="filename-accesslogs">./log/test-access.log</Property>
+        <Property name="filepattern-accesslogs">./log/test-access-%d{yyyy-MM-dd}-%i.log</Property>
+        <Property name="filename-outputlogs">./log/test-output.log</Property>
+        <Property name="filepattern-outputlogs">./log/test-output-%d{yyyy-MM-dd}-%i.log</Property>
+        
+        <Property name="marker-name">ACCESS</Property>
+        <Property name="marker-good">ACCEPT</Property>
+        <Property name="marker-bad">DENY</Property>
+    </Properties>
+ 
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{1.} - %msg%n" />
+            <MarkerFilter marker="${marker-name}" onMatch="${marker-bad}" onMismatch="${marker-good}"/>
+        </Console>
+        
+        <RollingFile name="Access" fileName="${filename-accesslogs}" filePattern="${filepattern-accesslogs}">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %logger{1} - %msg%n" />
+            <MarkerFilter marker="${marker-name}" onMatch="${marker-good}" onMismatch="${marker-bad}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="File" fileName="${filename-outputlogs}" filePattern="${filepattern-outputlogs}">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{1.} - %msg%n" />
+            <MarkerFilter marker="${marker-name}" onMatch="${marker-bad}" onMismatch="${marker-good}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+ 
+ 
+    <Loggers>
+        <!-- Every configuration must have a root logger. If one is not configured the default root LoggerConfig is ERROR with Console appender attached. -->
+        <Root level="INFO" additivity="true">
+            <AppenderRef ref="Console" level="INFO"/>
+            <AppenderRef ref="File" level="INFO"/>
+            <AppenderRef ref="Access" level="INFO"/>
+        </Root>
+    </Loggers>
+</Configuration>
